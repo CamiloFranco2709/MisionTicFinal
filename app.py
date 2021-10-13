@@ -74,7 +74,7 @@ def ingreso():
 def perfil():
     return render("Perfil.html")
 
-@app.route('/Carritocompras',methods=['GET','POST'])
+@app.route('/Carrito',methods=['GET','POST'])
 def carrito():
     return render("Carrito.html")
 

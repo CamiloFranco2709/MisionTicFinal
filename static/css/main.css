@@ -1,280 +1,303 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster+Two&family=Yanone+Kaffeesatz&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster+Two&family=Yanone+Kaffeesatz&display=swap");
+
 html,
 body {
-    height: 100%;
-    margin: 0;
+  height: 100%;
+  margin: 0;
 }
 
 h1 {
-    font-family: Bebas Neue;
-    margin: 0;
-    color: #8d233f;
-    justify-content: center;
+  font-family: Bebas Neue;
+  margin: 0;
+  color: #8d233f;
+  justify-content: center;
 }
 
 .otroh {
-    padding: 50px 50px 20px;
-    margin-left: 39%;
+  padding: 50px 50px 20px;
+  margin-left: 39%;
 }
 
-
 p {
-    font-family: Yanone Kaffeesatz;
-    padding: 5px 100px;
-    letter-spacing: 2px;
-    text-align: justify;
+  font-family: Yanone Kaffeesatz;
+  padding: 5px 100px;
+  letter-spacing: 2px;
+  text-align: justify;
 }
 
 #log1 {
-    text-align: center;
-    margin: 0%;
-    padding-bottom: 20px;
-    align-self: flex-start;
+  text-align: center;
+  margin: 0%;
+  padding-bottom: 20px;
+  align-self: flex-start;
 }
 
 h2 {
-    font-family: Bebas Neue;
+  font-family: Bebas Neue;
 }
 
 header {
-    padding: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  padding: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .ini {
-    display: flex;
-    background-image: url("/static/assets/images/Fondo1.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 500px;
-    background-size: 100%;
+  display: flex;
+  background-image: url("/static/assets/images/Fondo1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 500px;
+  background-size: 100%;
 }
 
 #ini1 {
+  font-size: 150px;
+  color: #8d233f;
+  text-shadow: 0 8px 9px #f2cedb, 0px -2px 1px #fff;
+  font-weight: bold;
+  letter-spacing: 10px;
+  text-align: right;
+  position: absolute;
+  padding: 50px 100px;
+  top: inherit;
+  left: 50%;
+  border-radius: 20px;
+}
+
+.boton {
+  background-color: #8d233f;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 32px 32px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 10% 25%;
+  cursor: pointer;
+  height: 30px;
+  align-self: flex-end;
+}
+
+.otroboton {
+  background-color: #8d233f;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 32px 32px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4% 44%;
+  cursor: pointer;
+  height: 30px;
+  align-self: flex-end;
+}
+
+.botones {
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 32px 32px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  margin: 4% 40%;
+  cursor: pointer;
+  height: 30px;
+}
+
+.container {
+  padding: 0 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.logo-box {
+  float: left;
+  margin-right: 20px;
+}
+
+.logo-box a {
+  outline: none;
+  display: block;
+}
+
+.logo-box img {
+  display: block;
+}
+
+nav {
+  overflow: hidden;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: right;
+}
+
+nav {
+  font-family: "Bebas Neue", sans-serif;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 25px;
+  height: 70px;
+  line-height: 70px;
+  transition: 0.5s linear;
+  font-size: 25px;
+}
+
+nav a {
+  text-decoration: none;
+  display: block;
+  position: relative;
+  color: #8d233f;
+  text-transform: uppercase;
+}
+
+#pfoo {
+  font-family: Yanone Kaffeesatz;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+#mfoo {
+  font-family: Yanone Kaffeesatz;
+  padding-top: 10px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  color: white;
+  text-transform: uppercase;
+}
+
+#mfoo:after {
+  content: "";
+  width: 0;
+  height: 2px;
+  position: relative;
+  left: 0;
+  bottom: 15px;
+  background: #f066a6;
+}
+
+nav a:after {
+  content: "";
+  width: 0;
+  height: 2px;
+  position: absolute;
+  left: 0;
+  bottom: 15px;
+  background: #f066a6;
+  transition: width 0.5s linear;
+}
+
+nav a:hover:after {
+  width: 100%;
+}
+
+footer {
+  align-self: flex-end;
+  bottom: 0;
+  padding: 10px;
+  font-size: 18px;
+  min-width: 95%;
+  background-color: #8d233f;
+  color: white;
+  text-align: center;
+}
+
+@media screen and (max-width: 660px) {
+  header {
+    text-align: center;
+  }
+
+  .logo-box {
+    float: none;
+    display: inline-block;
+    margin: 0 0 16px 0;
+  }
+
+  ul {
+    float: none;
+  }
+
+  nav li:first-of-type {
+    margin-left: 0;
+  }
+
+  #ini1 {
     font-size: 150px;
     color: #8d233f;
-    text-shadow: 0 8px 9px #F2CEDB, 0px -2px 1px #fff;
+    text-shadow: 0 8px 9px #f2cedb, 0px -2px 1px #fff;
     font-weight: bold;
     letter-spacing: 10px;
     text-align: right;
     position: absolute;
-    padding: 50px 100px;
-    top: inherit;
-    left: 50%;
-    border-radius: 20px;
-}
-
-.boton {
-    background-color: #8D233F;
-    border: none;
-    color: white;
-    border-radius: 4px;
-    padding: 5px 32px 32px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    margin: 10% 25%;
-    cursor: pointer;
-    height: 30px;
-    align-self: flex-end;
-}
-
-.otroboton {
-    background-color: #8D233F;    
-    border: none;
-    color: white;  
-    border-radius: 4px;
-    padding: 5px 32px 32px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    margin: 4% 44%;
-    cursor: pointer;
-    height: 30px;
-    align-self: flex-end;
-}
-
-.botones {
-    border: none;
-    color: white;
-    border-radius: 4px;
-    padding: 5px 32px 32px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    font-size: 18px;
-    margin: 4% 40%;
-    cursor: pointer;
-    height: 30px;
-}
-
-.container {
-    padding: 0 20px;
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.logo-box {
-    float: left;
-    margin-right: 20px;
-}
-
-.logo-box a {
-    outline: none;
-    display: block;
-}
-
-.logo-box img {
-    display: block;
-}
-
-nav {
-    overflow: hidden;
-}
-
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    float: right;
-}
-
-nav {
-    font-family: 'Bebas Neue', sans-serif;
-}
-
-nav li {
-    display: inline-block;
-    margin-left: 25px;
-    height: 70px;
-    line-height: 70px;
-    transition: .5s linear;
-    font-size: 25px;
-}
-
-nav a {
-    text-decoration: none;
-    display: block;
-    position: relative;
-    color: #8d233f;
-    text-transform: uppercase;
-}
-
-#pfoo {
-    font-family: Yanone Kaffeesatz;
-    letter-spacing: 2px;
-    text-align: center;
-}
-
-#mfoo {
-    font-family: Yanone Kaffeesatz;
-    padding-top: 10px;
-    letter-spacing: 2px;
-    text-decoration: none;
-    display: block;
-    position: relative;
-    color: white;
-    text-transform: uppercase;
-}
-
-#mfoo:after {
-    content: "";
-    width: 0;
-    height: 2px;
-    position: relative;
-    left: 0;
-    bottom: 15px;
-    background: #F066A6;
-}
-
-nav a:after {
-    content: "";
-    width: 0;
-    height: 2px;
-    position: absolute;
-    left: 0;
-    bottom: 15px;
-    background: #F066A6;
-    transition: width .5s linear;
-}
-
-nav a:hover:after {
-    width: 100%;
-}
-
-footer {
-    align-self: flex-end;
-    bottom: 0;
-    padding: 10px;
-    font-size: 18px;
-    min-width: 95%;
-    background-color: #8d233f;
-    color: white;
-    text-align: center;
-}
-
-@media screen and (max-width: 660px) {
-    header {
-        text-align: center;
-    }
-    .logo-box {
-        float: none;
-        display: inline-block;
-        margin: 0 0 16px 0;
-    }
-    ul {
-        float: none;
-    }
-    nav li:first-of-type {
-        margin-left: 0;
-    }
-    #ini1 {
-        font-size: 150px;
-        color: #8d233f;
-        text-shadow: 0 8px 9px #F2CEDB, 0px -2px 1px #fff;
-        font-weight: bold;
-        letter-spacing: 10px;
-        text-align: right;
-        position: absolute;
-        padding: 100px 200px;
-    }
+    padding: 100px 200px;
+  }
 }
 
 @media screen and (max-width: 550px) {
-    nav {
-        overflow: visible;
-    }
-    nav li {
-        display: block;
-        margin: 0;
-        height: 40px;
-        line-height: 40px;
-    }
-    nav li:hover {
-        background: rgba(0, 0, 0, .1);
-    }
-    nav a:after {
-        content: none;
-    }
-    #ini1 {
-        font-size: 150px;
-        color: #8d233f;
-        text-shadow: 0 8px 9px #F2CEDB, 0px -2px 1px #fff;
-        font-weight: bold;
-        letter-spacing: 10px;
-        text-align: right;
-        position: absolute;
-        padding: 100px 200px;
-    }
+  nav {
+    overflow: visible;
+  }
+
+  nav li {
+    display: block;
+    margin: 0;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  nav li:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  nav a:after {
+    content: none;
+  }
+
+  #ini1 {
+    font-size: 150px;
+    color: #8d233f;
+    text-shadow: 0 8px 9px #f2cedb, 0px -2px 1px #fff;
+    font-weight: bold;
+    letter-spacing: 10px;
+    text-align: right;
+    position: absolute;
+    padding: 100px 200px;
+  }
 }
 
 .d-flex {
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
 
 input:invalid {
-    border                    : 1px solid red;
+  border: 1px solid red;
+}
+
+.cabeza {
+  margin: auto;
+  width: 90%;
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2f3841;
 }
