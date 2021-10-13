@@ -1,0 +1,102 @@
+{% extends 'base.html' %} {% block head %}
+<title> Lista de Deseos </title>
+{% endblock %} {% block body %} 
+
+</head>
+<style>
+   
+    #form {
+        width: 250px;
+        margin: 0 auto;
+        height: 50px;
+        }
+
+    #form p {
+        text-align: center;
+    }
+
+    #form label {
+        font-size: 60px;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    label {
+        color: grey;
+    }
+
+    .clasificacion {
+        direction: rtl;
+        unicode-bidi: bidi-override;          
+       
+    }
+
+    label:hover,
+    label:hover ~ label {
+        color: orange;
+    }
+
+    input[type="radio"]:checked ~ label {
+        color: orange;
+        
+    }
+
+</style>
+<body>
+    <div>
+        <div>&nbsp;</div>
+        <div><h1>Wislish &hearts;</h1></div> 
+    <table>      
+        <tr>
+            <td><p>Menú 1</p></td>
+            <td>
+                <form>
+                    <p class="clasificacion">
+                    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                    --><label for="radio1">★</label><!--
+                    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                    --><label for="radio2">★</label><!--
+                    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                    --><label for="radio3">★</label><!--
+                    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                    --><label for="radio4">★</label><!--
+                    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                    --><label for="radio5">★</label>                          
+                    </p>
+                </form>
+            </td>
+            <td><img src='{{ url_for("static", filename="assets/images/img.png") }}' value='ADD' height="25" width="25" onclick="location.href='';"/></td>
+            <td> 
+                <button class="otroboton" name='agrbtn' onclick="location.href='/Carrito';" value='ADD' height="10" width="10">ADD</button></td>         
+        </tr>
+
+        <tr>            
+            <td><p>Menú 2</p></td>
+            <td>
+                <form>
+                    <p class="clasificacion">
+                    <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                    --><label for="radio1">★</label><!--
+                    --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                    --><label for="radio2">★</label><!--
+                    --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                    --><label for="radio3">★</label><!--
+                    --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                    --><label for="radio4">★</label><!--
+                    --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                    --><label for="radio5">★</label>                          
+                    </p>
+                </form>
+            </td>                
+            <td><img src='{{ url_for("static", filename="assets/images/img.png") }}' value='ADD' height="25" width="25" onclick="location.href='';"/></td> 
+            <td>
+                <button class="otroboton" name='agr2btn' onclick="location.href='/Carrito';" value='ADD' height="5" width="5">ADD</button></td>                                                
+        </tr>           
+    </table>
+    <div>&nbsp;</div>
+</div>       
+</body>
+
+{% endblock %}
