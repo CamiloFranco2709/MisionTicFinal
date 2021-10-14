@@ -82,12 +82,19 @@ def carrito():
 def productos():
     return render("Productos.html")
 
-@app.route('/Productos/<idmenu>',methods=['GET','POST'])
-def producto(idmenu):
-    if idmenu in listaproductos:
-        return "Este es el producto  "+ idmenu
-    else:    
-        return "Producto no existe"
+@app.route('/Platos',methods=['GET'])
+def platos():
+    return render("Platos.html")
+###
+###@app.route('/Productos/<idmenu>',methods=['GET','POST'])
+###def producto(idmenu):
+###    men=listaproductos
+###    for menus in men:
+###        return "Este es el resultado"+menus.nombre
+        #if idmenu==menus.nombre:
+         #   return "Este es el producto  "+ idmenu
+        #else:    
+         #   return "Producto no existe"
 
 @app.route('/Listadeseos',methods=['GET','POST'])
 def deseos():
