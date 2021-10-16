@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import TextField, SubmitField,PasswordField
-from wtforms.validators import InputRequired, Length
+from wtforms import TextField, SubmitField
+from wtforms.validators import InputRequired, Length, DataRequired
 from wtforms.fields.html5 import EmailField
 
 class Registro(FlaskForm):
@@ -14,6 +14,6 @@ class Registro(FlaskForm):
 
 class Login(FlaskForm):
     usr = TextField('Usuario *',validators=[Length(min=5, max=40, message='Longitud fuera de rango'),InputRequired(message='Usuario es requerido')])
-    pwd = PasswordField('Clave *',validators=[Length(min=5, max=40, message='Longitud fuera de rango'),InputRequired(message='Clave es requerido')])
+    email = EmailField('Email *',validators=[Length(min=5, max=40, message='Longitud fuera de rango'),DataRequired(message='Email es requerido')])
     btn = SubmitField('Ingresar')
 

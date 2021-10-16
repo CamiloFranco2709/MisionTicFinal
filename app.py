@@ -1,8 +1,12 @@
+from sqlite3.dbapi2 import Cursor
 from flask import Flask
 from flask import render_template as render
 from flask import redirect
 from formularios import Registro
 import os
+import sqlite3 
+from sqlite3 import Error
+from flask import request
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -57,6 +61,46 @@ users=[
     }
 ]
 
+def sql_connection():
+    try:
+        con=sqlite3.connect('Michaels.db')
+        return con
+    except Error:
+        print(Error)
+
+def sql_insert_menu(idm, nombre, precio):
+    strsql="insert into Menu (idm, nombre, precio) values('"+idm+"', '"+nombre+"', '"+precio+");"
+    con=sql_connection()
+    #se usa para ejecutar las sentencias sql
+    cursorObj=con.cursor()
+    cursorObj.execute(strsql)
+    con.commit()
+    con.close()
+
+def sql_select_menu():
+    strsql="select * from Menu;"
+    con=sql_connection()
+    #se usa para ejecutar las sentencias sql
+    cursorObj=con.cursor()
+    cursorObj.execute(strsql)
+    Menu=cursorObj.fetchall()
+
+def sql_edit_menu(idm, nombre, precio):
+    strsql="update Menu set idm = '"+idm+"', nombre= '"+nombre+"', precio='"+precio+"' where idm="+idm+";"
+    con=sql_connection()
+    cursorObj=con.cursor()
+    cursorObj.execute(strsql)
+    con.commit()
+    con.close()
+
+def sql_delete_menu(id):
+    strsql="delete from Menu where id="+id+";"
+    con=sql_connection()
+    cursorObj=con.cursor()
+    cursorObj.execute(strsql)
+    con.commit()
+    con.close()
+
 @app.route('/',methods=['GET'])
 def inicio():
     return render("index.html")
@@ -78,9 +122,9 @@ def perfil():
 def carrito():
     return render("Carrito.html")
 
-@app.route('/Productos',methods=['GET'])
+@app.route('/Menu',methods=['GET'])
 def productos():
-    return render("Productos.html")
+    return render("Menu.html")
 
 @app.route('/Platos',methods=['GET'])
 def platos():
