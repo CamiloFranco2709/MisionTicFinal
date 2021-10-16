@@ -158,5 +158,13 @@ def modify_user_admin():
 #si el usuario esta registrado ingresar a la pagina de lo contrario solicitar datos de ingreso
     return render("Editaruadmin.html")
 
+@app.route('/Agregarmenu',methods=['GET','POST'])
+def agregar_menu():
+    return render("Agregarmenu.html")
+
+@app.route('/Agregarplato',methods=['GET','POST'])
+def agregar_plato():
+    return render("Agregarplato.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
