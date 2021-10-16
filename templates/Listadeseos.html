@@ -43,14 +43,27 @@
         
     }
 
+    .p1{
+    font-family: Yanone Kaffeesatz;    
+    letter-spacing: 2px;
+    text-align: left;
+    word-wrap: break-word;
+    width: 20%    
+        
+    }
+
+
+
+   
 </style>
 <body>
-    <div>
+    <div class="container">
         <div>&nbsp;</div>
-        <div><h1>Wislish &hearts;</h1></div> 
+        <div><h1>Wislish &hearts;</h1></div>
+        <div>&nbsp;</div> 
     <table>      
         <tr>
-            <td><p>Menú 1</p></td>
+            <td class=p1>Menú 1: descripción del menu 1</td>
             <td>
                 <form>
                     <p class="clasificacion">
@@ -67,13 +80,13 @@
                     </p>
                 </form>
             </td>
-            <td><img src='{{ url_for("static", filename="assets/images/img.png") }}' value='ADD' height="25" width="25" onclick="location.href='';"/></td>
+            <td><img src='{{ url_for("static", filename="assets/images/img.png") }}' value='ADD' height="30" width="30" onclick="location.href='';"/></td>
             <td> 
-                <button class="otroboton" name='agrbtn' onclick="location.href='/Carrito';" value='ADD' height="10" width="10">ADD</button></td>         
+                <button class="otroboton" name='agrbtn' onclick="location.href='/Carrito';" value='ADD' height="5" width="5">ADD</button></td>         
         </tr>
 
         <tr>            
-            <td><p>Menú 2</p></td>
+            <td class=p1>Menú 2. descripción del menú 2 </td>
             <td>
                 <form>
                     <p class="clasificacion">
@@ -90,9 +103,10 @@
                     </p>
                 </form>
             </td>                
-            <td><img src='{{ url_for("static", filename="assets/images/img.png") }}' value='ADD' height="25" width="25" onclick="location.href='';"/></td> 
+            <td><img src='{{ url_for("static", filename="assets/images/img.png") }}' value='ADD' onclick="location.href='';" height="30" width="30" /></td> 
             <td>
-                <button class="otroboton" name='agr2btn' onclick="location.href='/Carrito';" value='ADD' height="5" width="5">ADD</button></td>                                                
+                <button class="otroboton" name='agr2btn' onclick="location.href='/Carrito';" value='ADD'>ADD</button></button>
+            </td>                                                
         </tr>           
     </table>
     <div>&nbsp;</div>
