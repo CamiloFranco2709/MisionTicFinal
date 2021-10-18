@@ -131,7 +131,7 @@ def productos():
 @app.route('/Platos',methods=['GET'])
 def platos()-> str :
     """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM platos ORDER BY nombre"
+    sql = "SELECT * FROM platos ORDER BY nombre,id"
     res = ejecutar_sel(sql)
     if len(res)==0:
         mess = 'No existen platos registradas en el sistema'
