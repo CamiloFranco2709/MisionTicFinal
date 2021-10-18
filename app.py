@@ -1,4 +1,5 @@
 from sqlite3.dbapi2 import Cursor
+from flask import Flask, jsonify
 from flask import Flask
 from flask import render_template as render
 from flask import redirect
@@ -7,6 +8,7 @@ import os
 import sqlite3 
 from sqlite3 import Error
 from flask import request
+from bd import ejecutar_sel, ejecutar_acc
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -127,7 +129,16 @@ def productos():
     return render("Menu.html")
 
 @app.route('/Platos',methods=['GET'])
-def platos():
+def platos()-> str :
+    """ Devolver el contenido completo de la base de datos """
+    sql = "SELECT * FROM platos ORDER BY fecha, hora, nombre"
+    res = ejecutar_sel(sql)
+    if len(res)==0:
+        mess = 'No existen platos registradas en el sistema'
+        stat = 'fail'
+    else:
+        mess = 'Se muestran los platos registrados'
+        stat = 'success'
     return render("Platos.html")
 ###
 ###@app.route('/Productos/<idmenu>',methods=['GET','POST'])
