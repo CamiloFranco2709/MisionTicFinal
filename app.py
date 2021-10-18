@@ -131,7 +131,7 @@ def productos():
 @app.route('/Platos',methods=['GET'])
 def platos()-> str :
     """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM platos ORDER BY fecha, hora, nombre"
+    sql = "SELECT * FROM platos ORDER BY nombre"
     res = ejecutar_sel(sql)
     if len(res)==0:
         mess = 'No existen platos registradas en el sistema'
@@ -139,7 +139,8 @@ def platos()-> str :
     else:
         mess = 'Se muestran los platos registrados'
         stat = 'success'
-    return render("Platos.html")
+    return jsonify({'resultado':stat,'mensaje':mess,'datos':res}) 
+### return render("Platos.html")###
 ###
 ###@app.route('/Productos/<idmenu>',methods=['GET','POST'])
 ###def producto(idmenu):
