@@ -7,15 +7,17 @@
     Registro
 </h1>
 <form action="/registro/" method="POST">
-    {{form.nom.label}} {{ form.nom(size=40, minlegth=5, maxlength=20 )}}
-    <br> {{ form.usu.label}} {{ form.usu(size=40, minlegth=5, maxlength=40 )}}
-    <br> {{ form.ema.label}} {{ form.ema(size=40, minlegth=10, maxlength=20 )}}
-    <br> {{ form.dire.label}} {{ form.dire(size=40, minlegth=5, maxlength=40 )}}
-    <br> {{ form.tel.label}} {{ form.tel(size=40, minlegth=7, maxlength=40 )}}
-    <br> {{ form.tipoU.label}} {{ form.tipoU(size=40, minlegth=7, maxlength=40 )}}
+    <br> {{form.nom.label}} {{ form.nom(size=40, minlegth=2, maxlength=100 )}}    
+    <br> {{ form.ema.label}} {{ form.ema(size=40, minlegth=2, maxlength=100 )}}
+    <br> {{ form.pas.label}} {{ form.pas(size=40, minlegth=2, maxlength=100 )}}
+    <br> {{ form.dire.label}} {{ form.dire(size=40, minlegth=2, maxlength=100 )}}
+    <br> {{ form.tel.label}} {{ form.tel(size=40, minlegth=2, maxlength=100 )}}
+    <br> {{ form.tipoU.label}} {{ form.tipoU(size=40, minlegth=2, maxlength=100 )}}
     <br> {{ form.regbtn() }} {{form.hidden_tag()}}
 </form>
+{% for msg in get_flashed_messages() %}
+    <div>{{ msg }}</div>
+    {% endfor %}
 <p id="log1">Ya estas registrado <a href="/Ingreso">has click aquí</a></p>
-</section>
 
 {% endblock %}
