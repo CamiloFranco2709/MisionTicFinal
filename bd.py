@@ -27,3 +27,13 @@ def ejecutar_sel(sql) -> list:
         res = None
     return res
 
+def accion(sql, datos) -> int:
+    try:
+        with sqlite3.connect(NOM_BD) as con:    
+            cur = con.cursor()
+            res = cur.execute(sql, datos).rowcount
+            if res!=0:
+                con.commit()
+    except:
+        res = 0
+    return res
