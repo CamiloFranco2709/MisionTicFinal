@@ -8,7 +8,10 @@ import os
 import sqlite3 
 from sqlite3 import Error
 from flask import request
-from bd import ejecutar_sel, ejecutar_acc
+from bd import ejecutar_sel, ejecutar_acc, accion
+from markupsafe import escape
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask import flash
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -30,7 +33,7 @@ listaproductos =[
 ]
 users=[
     {
-        'user':'erikaside',
+        'pass':'erikaside',
         'correo':'erikaside@hotmail.com',
         'nombre':'erika',
         'direccion':'calle 128 No 24-5',
@@ -38,7 +41,7 @@ users=[
         'tipou':'Super Administrador'
     },
     {
-        'user':'camilowr',
+        'pass':'camilowr',
         'correo':'camilowr@hotmail.com',
         'nombre':'camilo',
         'direccion':'calle 286 No 6-14',
@@ -46,7 +49,7 @@ users=[
         'tipou':'Administrador'
     },
     {
-        'user':'andreapl',
+        'pass':'andreapl',
         'correo':'andreapl@hotmail.com',
         'nombre':'andrea',
         'direccion':'calle 94 No 14-74',
@@ -54,7 +57,7 @@ users=[
         'tipou':'Usuario'
     },
     {
-        'user':'yasmintg',
+        'pass':'yasmintg',
         'correo':'yasmintg@hotmail.com',
         'nombre':'yasmin',
         'direccion':'calle 61 No 32-14',
@@ -107,10 +110,48 @@ def sql_delete_menu(id):
 def inicio():
     return render("index.html")
 
-@app.route('/Registro',methods=['GET','POST'])
+@app.route('/Registro/',methods=['GET','POST'])
 def registro():
     frm = Registro()
-    return render("Registro.html", form=frm)
+    if request.method == 'GET':
+        return render("Registro.html", form=frm, titulo='Registro de datos')
+    else:
+        nom = escape(request.form['nom'])
+        ema = escape(request.form['ema'])
+        pas = escape(request.form['pas'])
+        dire = escape(request.form['dire'])
+        tel = escape(request.form['tel'])
+        tipoU = escape(request.form['tipoU'])
+
+        swerror = False
+        if nom==None or len(nom)==0:
+            flash('ERROR: Debe suministrar un nombre de usuario')
+            swerror = True
+        if ema==None or len(ema)==0:
+            flash('ERROR: Debe suministrar un e-mail válido ')
+            swerror = True
+        if pas==None or len(pas)==0:
+            flash('ERROR: Debe suministrar un password válido')
+            swerror = True
+        if dire==None or len(dire)==0:
+            flash('ERROR: Debe suministrar una dirección válida')
+            swerror = True
+        if tel==None or len(tel)==0:
+            flash('ERROR: Debe suministrar un telefono válido')
+            swerror = True
+        if tipoU==None or len(tipoU)==0:
+            flash('ERROR: Debe suministrar un Tipo de Usuario')
+            swerror = True        
+        if not swerror:      
+            sql = 'INSERT INTO usuarios(nombre, correo, password, direccion, telefono, tipousuario) VALUES(?, ?, ?, ?, ?, ?)'
+            pwd = generate_password_hash(pas)     
+            res = accion(sql, (nom, ema, pwd, dire, tel, tipoU))
+            if res==0:
+                flash('ERROR: No se pudieron almacenar los datos, reintente')
+            else:
+                flash('INFO: Los datos fueron almacenados satisfactoriamente')
+        return render('Registro.html', form=frm, titulo='Registro de datos')
+
 
 @app.route('/Ingreso',methods=['GET','POST'])
 def ingreso():
