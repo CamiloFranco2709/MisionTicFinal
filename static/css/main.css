@@ -322,3 +322,56 @@ input:invalid {
    display: flex;
   justify-content: center;
 }
+
+.fila {
+  height                    : 35px;
+}
+
+.c2 {
+  width                     : 55%;
+  display                   : inline;
+  float                     : right;
+  overflow-x                : hidden;
+  
+}
+
+.c3 {
+  width                     : 35%;
+  display                   : inline;
+  float                     : left;
+  overflow-x                : hidden;
+  text-align: center;
+}
+
+.c7 {
+  width                     : 65%;
+  display                   : inline;
+  float                     : left;
+  overflow-x                : hidden;
+}
+
+.c8 {
+  width                     : 45%;
+  display                   : inline;
+  float                     : left;
+  overflow-x                : hidden;
+}
+
+.formularios {
+  position                  : relative;
+}
+
+h2 {
+  font-family               : Bebas Neue;
+  margin                    : 0;
+  color                     : #8d233f;
+  text-align                :  center;
+}
+
+.msgflash{
+  text-align                : center;
+  margin                    : 0%;
+  padding-bottom            : 20px;
+  align-self                : flex-start;
+  color                     : #8d233f;
+}
