@@ -18,95 +18,6 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
-listaproductos =[
-    {
-        'id':'1',
-        'nombre':'donut'
-    },
-    {
-        'id':'2',
-        'nombre':'donutb'
-    },
-    {
-        'id':'2',
-        'nombre':'panqueque'
-    }
-]
-users=[
-    {
-        'pass':'erikaside',
-        'correo':'erikaside@hotmail.com',
-        'nombre':'erika',
-        'direccion':'calle 128 No 24-5',
-        'numerocel':'3152268452',
-        'tipou':'Super Administrador'
-    },
-    {
-        'pass':'camilowr',
-        'correo':'camilowr@hotmail.com',
-        'nombre':'camilo',
-        'direccion':'calle 286 No 6-14',
-        'numerocel':'3192274752',
-        'tipou':'Administrador'
-    },
-    {
-        'pass':'andreapl',
-        'correo':'andreapl@hotmail.com',
-        'nombre':'andrea',
-        'direccion':'calle 94 No 14-74',
-        'numerocel':'3329665896',
-        'tipou':'Usuario'
-    },
-    {
-        'pass':'yasmintg',
-        'correo':'yasmintg@hotmail.com',
-        'nombre':'yasmin',
-        'direccion':'calle 61 No 32-14',
-        'numerocel':'3164796129',
-        'tipou':'Usuario'
-    }
-]
-
-def sql_connection():
-    try:
-        con=sqlite3.connect('Michaels.db')
-        return con
-    except Error:
-        print(Error)
-
-def sql_insert_menu(idm, nombre, precio):
-    strsql="insert into Menu (idm, nombre, precio) values('"+idm+"', '"+nombre+"', '"+precio+");"
-    con=sql_connection()
-    #se usa para ejecutar las sentencias sql
-    cursorObj=con.cursor()
-    cursorObj.execute(strsql)
-    con.commit()
-    con.close()
-
-def sql_select_menu():
-    strsql="select * from Menu;"
-    con=sql_connection()
-    #se usa para ejecutar las sentencias sql
-    cursorObj=con.cursor()
-    cursorObj.execute(strsql)
-    Menu=cursorObj.fetchall()
-
-def sql_edit_menu(idm, nombre, precio):
-    strsql="update Menu set idm = '"+idm+"', nombre= '"+nombre+"', precio='"+precio+"' where idm="+idm+";"
-    con=sql_connection()
-    cursorObj=con.cursor()
-    cursorObj.execute(strsql)
-    con.commit()
-    con.close()
-
-def sql_delete_menu(id):
-    strsql="delete from Menu where id="+id+";"
-    con=sql_connection()
-    cursorObj=con.cursor()
-    cursorObj.execute(strsql)
-    con.commit()
-    con.close()
-
 @app.route('/',methods=['GET'])
 def inicio():
     return render("index.html")
@@ -195,8 +106,6 @@ def ingreso():
                 flash('ERROR: Usuario o contraseña inválidos')
                 return render_template('Ingreso.html', form=frm, titulo='Iniciar Sesión')
 
-
- 
 @app.route('/salir/', methods=['GET','POST'])
 def salir():
     session.clear()
@@ -226,17 +135,6 @@ def platos()-> str :
         mess = 'Se muestran los platos registrados'
         stat = 'success'
     return jsonify({'resultado':stat,'mensaje':mess,'datos':res}) 
-### return render("Platos.html")###
-###
-###@app.route('/Productos/<idmenu>',methods=['GET','POST'])
-###def producto(idmenu):
-###    men=listaproductos
-###    for menus in men:
-###        return "Este es el resultado"+menus.nombre
-        #if idmenu==menus.nombre:
-         #   return "Este es el producto  "+ idmenu
-        #else:    
-         #   return "Producto no existe"
 
 @app.route('/Listadeseos',methods=['GET','POST'])
 def deseos():
