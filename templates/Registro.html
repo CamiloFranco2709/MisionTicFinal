@@ -2,22 +2,50 @@
 <title> Registro </title>
 {% endblock %} {% block body %}
 
-
 <h1 class="otroh">
     Registro
 </h1>
-<form action="/registro/" method="POST">
-    <br> {{form.nom.label}} {{ form.nom(size=40, minlegth=2, maxlength=100 )}}    
-    <br> {{ form.ema.label}} {{ form.ema(size=40, minlegth=2, maxlength=100 )}}
-    <br> {{ form.pas.label}} {{ form.pas(size=40, minlegth=2, maxlength=100 )}}
-    <br> {{ form.dire.label}} {{ form.dire(size=40, minlegth=2, maxlength=100 )}}
-    <br> {{ form.tel.label}} {{ form.tel(size=40, minlegth=2, maxlength=100 )}}
-    <br> {{ form.tipoU.label}} {{ form.tipoU(size=40, minlegth=2, maxlength=100 )}}
-    <br> {{ form.regbtn() }} {{form.hidden_tag()}}
+<form action="/Registro/" method="POST">
+    <div class="formularios">
+        <div class='fila'>
+            <div class='c3'>{{ form.nom.label}}</div>
+            <div class='c7'>{{ form.nom(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+
+        <div class='fila'>
+            <div class='c3'>{{ form.ema.label}}</div>
+            <div class='c7'>{{ form.ema(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+
+        <div class='fila'>
+            <div class='c3'>{{ form.pas.label}}</div>
+            <div class='c7'>{{ form.pas(size=40, minlegth=2, maxlength=100 )}}</div> 
+        </div>
+
+        <div class='fila'>
+            <div class='c3'>{{ form.dire.label}}</div>
+            <div class='c7'>{{ form.dire(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+        
+        <div class='fila'>
+            <div class='c3'>{{ form.tel.label}}</div>
+            <div class='c7'>{{ form.tel(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+         
+        <div class='fila'>
+            <div class='c3'>{{ form.tipoU.label}}</div>
+            <div class='c7'>{{ form.tipoU(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+        <br>
+
+        <div class='fila'>            
+            <div class='c2'>{{ form.regbtn() }} {{form.hidden_tag()}}</div>
+        </div>
+    </div>
 </form>
 {% for msg in get_flashed_messages() %}
     <div>{{ msg }}</div>
     {% endfor %}
-<p id="log1">Ya estas registrado <a href="/Ingreso">has click aquí</a></p>
-
+    <br>
+    <p id="log1">Ya estas registrado <a href="/Ingreso">has click aquí</a></p>
 {% endblock %}
