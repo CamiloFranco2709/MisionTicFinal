@@ -1,9 +1,10 @@
 from sqlite3.dbapi2 import Cursor
 from flask import Flask, jsonify
-from flask import Flask
+from flask import Flask, redirect
 from flask import render_template as render
 from flask import redirect
-from formularios import Registro
+from flask.templating import render_template
+from formularios import Registro, Login
 import os
 import sqlite3 
 from sqlite3 import Error
@@ -11,7 +12,7 @@ from flask import request
 from bd import ejecutar_sel, ejecutar_acc, accion
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask import flash
+from flask import flash, request, session
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -155,8 +156,52 @@ def registro():
 
 @app.route('/Ingreso',methods=['GET','POST'])
 def ingreso():
-    return render("Ingreso.html", usuarios=users)
+    frm = Login()
+    if request.method=='GET':
+        return render_template('Ingreso.html', form=frm, titulo='Control de acceso')
+    # 1. Recuperar los datos del formulario y le aplico transformaciones
+    else:
+        usu = escape(frm.usu.data.strip())
+        pwd = escape(frm.pwd.data.strip())
+        # Preparar la consulta 
+        sql = f"SELECT id, nombre, password, direccion, telefono, tipousuario FROM usuarios WHERE correo='{usu}'"
+        # Ejecutar la consulta
+        res = ejecutar_sel(sql)
+        # Procesar los resultados
+        if len(res)==0:
+            flash('ERROR: Usuario o contraseña inválidos')
+            return render_template('Ingreso.html', form=frm, titulo='Iniciar Sesión')
+        else:
+            # Recupero la clave almacenada en la base de datos - cifrada
+            cbd = res[0][2]
+            # Comparo contra la clave suminstrada por el usuario
+            if check_password_hash(cbd,pwd):
+                # Se guardarán los datos del usuario en una variable de sesion
+                session.clear()
+                session['id'] = res[0][0]
+                session['nom'] = res[0][1]
+                session['cla'] = pwd
+                session['dir'] = res[0][3]
+                session['tel'] = res[0][4]
+                session['tipoU'] = res[0][5]
+                session['usr'] = usu
+                if session['tipoU'] == 'Super Administrador':
+                    return render_template('PerfilSuperA.html')
+                elif session['tipoU'] == 'Administrador':
+                    return render_template('PerfilAdmin.html')
+                else:
+                    return redirect('/')
+            else:
+                flash('ERROR: Usuario o contraseña inválidos')
+                return render_template('Ingreso.html', form=frm, titulo='Iniciar Sesión')
 
+
+ 
+@app.route('/salir/', methods=['GET','POST'])
+def salir():
+    session.clear()
+    return render_template("index.html")            
+            
 @app.route('/Perfil',methods=['GET','POST'])
 def perfil():
     return render("Perfil.html")
