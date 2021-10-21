@@ -11,5 +11,10 @@ class Registro(FlaskForm):
     tel = TextField('Telefono', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El telefóno es requerido')])
     tipoU = TextField('Tipo U', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El tipo de Usuario es requerido')])
     regbtn = SubmitField('Registrarse')
+   
+class Login(FlaskForm):
+    usu = EmailField('E-mail', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='E-mail es requerido')])
+    pwd = PasswordField('Password', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='Usuario es requerido')])
+    logbtn = SubmitField('Iniciar Sesión')
 
 
