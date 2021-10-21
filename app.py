@@ -120,9 +120,21 @@ def carrito():
     return render("Carrito.html")
 
 @app.route('/Menu',methods=['GET'])
-def productos():
-    return render("Menu.html")
-
+def productos()-> str :
+    """ Devolver el contenido completo de la base de datos """
+    sql = "SELECT * FROM menu ORDER BY idm,nombre"
+    res = ejecutar_sel(sql)
+    print(res)
+    return render("Menu.html",resultado=res)
+    """
+    if len(res)==0:
+        mess = 'No existen platos registradas en el sistema'
+        stat = 'fail'
+    else:
+        mess = 'Se muestran los platos registrados'
+        stat = 'success'
+    return jsonify({'resultado':stat,'mensaje':mess,'datos':res})
+    """
 @app.route('/Platos',methods=['GET'])
 def platos()-> str :
     """ Devolver el contenido completo de la base de datos """
