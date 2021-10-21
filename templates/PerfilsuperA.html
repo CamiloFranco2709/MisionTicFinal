@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block head %}
+<title> Perfil Super Administrador </title>
+{% endblock %} {% block body %}
+
+<h2>
+    Bienvenido Super Administrador
+</h2>
+<br>
+<section data-bs-version="5.1" class="form6 cid-sKVt2ptwbI" id="form6-1l">
+    <div>    
+        <p id="log1"><a href="/Editaruadmin">Gestionar Usuarios</a></p>
+        <p id="log1"><a href="/Agregarplato">Gestionar Platos</a></p>
+        <p id="log1"><a href="/Agregarmenu">Gestionar Menús</a></p>
+    </div>
+</section>
+    <form action='/salir/' method='GET' name='salir' id='salir'>
+        <div class='fila'>
+            <button class=otroboton>Salir</button>
+        </div>
+    </form>
+    <div class='fila'>&nbsp;</div>
+    <br>
+<div class='fila'>&nbsp;</div>
+    
+
+
+{% endblock %}

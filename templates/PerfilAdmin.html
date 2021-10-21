@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block head %}
+<title> Perfil Administrador </title>
+{% endblock %} {% block body %}
+
+<h2>
+    Bienvenido Administrador
+</h2>
+    <br>
+    <div>
+        <p id="log1"><a href="/Editaru">Gestionar Usuarios</a></p>
+        <p id="log1"><a href="/Agregarplato">Gestionar Platos</a></p>
+    </div>
+    <form action='/salir/' method='GET' name='salir' id='salir'>
+        <div class='fila'>
+            <button class=otroboton>Salir</button>
+        </div>
+    </form>
+    <div class='fila'>&nbsp;</div>
+    <br>
+    <div class='fila'>&nbsp;</div>
+
+{% endblock %}
