@@ -124,7 +124,6 @@ def productos()-> str :
     """ Devolver el contenido completo de la base de datos """
     sql = "SELECT * FROM menu ORDER BY idm,nombre"
     res = ejecutar_sel(sql)
-    print(res)
     return render("Menu.html",resultado=res)
     """
     if len(res)==0:
