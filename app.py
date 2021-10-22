@@ -175,3 +175,4 @@ def agregar_plato():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    #app.run(debug=True, port=443, ssl_context=('c20211021.pem','l20211021.pem')) PARA HTTPS
