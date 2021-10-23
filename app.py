@@ -4,6 +4,7 @@ from flask import Flask, redirect
 from flask import render_template as render
 from flask import redirect
 from flask.templating import render_template
+from wtforms import form
 from formularios import Registro, Login
 import os
 import sqlite3 
@@ -28,16 +29,20 @@ def registro():
     if request.method == 'GET':
         return render("Registro.html", form=frm, titulo='Registro de datos')
     else:
+        usu = escape(request.form['usu'])
         nom = escape(request.form['nom'])
         ema = escape(request.form['ema'])
         pas = escape(request.form['pas'])
         dire = escape(request.form['dire'])
         tel = escape(request.form['tel'])
-        tipoU = escape(request.form['tipoU'])
+        tipoU = frm.tipoU.data
 
         swerror = False
-        if nom==None or len(nom)==0:
+        if usu==None or len(usu)==0:
             flash('ERROR: Debe suministrar un nombre de usuario')
+            swerror = True
+        if nom==None or len(nom)==0:
+            flash('ERROR: Debe suministrar un nombre')
             swerror = True
         if ema==None or len(ema)==0:
             flash('ERROR: Debe suministrar un e-mail válido ')
@@ -51,31 +56,34 @@ def registro():
         if tel==None or len(tel)==0:
             flash('ERROR: Debe suministrar un telefono válido')
             swerror = True
-        if tipoU==None or len(tipoU)==0:
+        if tipoU==None:
             flash('ERROR: Debe suministrar un Tipo de Usuario')
             swerror = True        
         if not swerror:      
-            sql = 'INSERT INTO usuarios(nombre, correo, password, direccion, telefono, tipousuario) VALUES(?, ?, ?, ?, ?, ?)'
+            sql = 'INSERT INTO usuarios(usuario, nombre, correo, password, direccion, telefono, tipousuario) VALUES(?, ?, ?, ?, ?, ?, ?)'
             pwd = generate_password_hash(pas)     
-            res = accion(sql, (nom, ema, pwd, dire, tel, tipoU))
+            res = accion(sql, (usu, nom, ema, pwd, dire, tel, tipoU))
             if res==0:
+                print(usu, nom, ema, pwd, dire, tel, tipoU)
                 flash('ERROR: No se pudieron almacenar los datos, reintente')
             else:
                 flash('INFO: Los datos fueron almacenados satisfactoriamente')
+            if frm.validate_on_submit():
+                return redirect('/Registro')                
         return render('Registro.html', form=frm, titulo='Registro de datos')
 
 
-@app.route('/Ingreso',methods=['GET','POST'])
+@app.route('/Ingreso/',methods=['GET','POST'])
 def ingreso():
     frm = Login()
     if request.method=='GET':
         return render_template('Ingreso.html', form=frm, titulo='Control de acceso')
     # 1. Recuperar los datos del formulario y le aplico transformaciones
     else:
-        usu = escape(frm.usu.data.strip())
+        email = escape(frm.ema.data.strip())
         pwd = escape(frm.pwd.data.strip())
         # Preparar la consulta 
-        sql = f"SELECT id, nombre, password, direccion, telefono, tipousuario FROM usuarios WHERE correo='{usu}'"
+        sql = f"SELECT id, usuario, nombre, password, direccion, telefono, tipousuario FROM usuarios WHERE correo='{email}'"
         # Ejecutar la consulta
         res = ejecutar_sel(sql)
         # Procesar los resultados
@@ -84,18 +92,19 @@ def ingreso():
             return render_template('Ingreso.html', form=frm, titulo='Iniciar Sesión')
         else:
             # Recupero la clave almacenada en la base de datos - cifrada
-            cbd = res[0][2]
+            cbd = res[0][3]
             # Comparo contra la clave suminstrada por el usuario
             if check_password_hash(cbd,pwd):
                 # Se guardarán los datos del usuario en una variable de sesion
                 session.clear()
                 session['id'] = res[0][0]
-                session['nom'] = res[0][1]
+                session['usu'] = res[0][1]
+                session['nom'] = res[0][2]
                 session['cla'] = pwd
-                session['dir'] = res[0][3]
-                session['tel'] = res[0][4]
-                session['tipoU'] = res[0][5]
-                session['usr'] = usu
+                session['dir'] = res[0][4]
+                session['tel'] = res[0][5]
+                session['tipoU'] = res[0][6]
+                session['usr'] = email
                 if session['tipoU'] == 'Super Administrador':
                     return render_template('PerfilSuperA.html')
                 elif session['tipoU'] == 'Administrador':

@@ -8,6 +8,11 @@
 <form action="/Registro/" method="POST">
     <div class="formularios">
         <div class='fila'>
+            <div class='c3'>{{ form.usu.label}}</div>
+            <div class='c7'>{{ form.usu(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+
+        <div class='fila'>
             <div class='c3'>{{ form.nom.label}}</div>
             <div class='c7'>{{ form.nom(size=40, minlegth=2, maxlength=100 )}}</div>
         </div>
@@ -34,7 +39,7 @@
          
         <div class='fila'>
             <div class='c3'>{{ form.tipoU.label}}</div>
-            <div class='c7'>{{ form.tipoU(size=40, minlegth=2, maxlength=100 )}}</div>
+            <div class='c7'>{{ form.tipoU }}</div>
         </div>
         <br>
 
