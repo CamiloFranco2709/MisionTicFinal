@@ -14,10 +14,23 @@ from bd import ejecutar_sel, ejecutar_acc, accion
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import flash, request, session
+from functools import wraps
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+@app.errorhandler(404)
+def e404(e):
+    return render_template("index.html"), 404
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("usu") is None:
+            return redirect("/Ingreso")
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/',methods=['GET'])
 def inicio():
@@ -64,7 +77,6 @@ def registro():
             pwd = generate_password_hash(pas)     
             res = accion(sql, (usu, nom, ema, pwd, dire, tel, tipoU))
             if res==0:
-                print(usu, nom, ema, pwd, dire, tel, tipoU)
                 flash('ERROR: No se pudieron almacenar los datos, reintente')
             else:
                 flash('INFO: Los datos fueron almacenados satisfactoriamente')
@@ -72,6 +84,45 @@ def registro():
                 return redirect('/Registro')                
         return render('Registro.html', form=frm, titulo='Registro de datos')
 
+@app.route('/Editaruadmin/',methods=['GET','POST'])
+def modify_user_admin():
+    if request.method=='POST':
+        usuario = request.form['usuariotxt'].strip()
+        if "buscar" in request.form:
+            sql = f"SELECT usuario, nombre, correo, direccion, telefono, tipousuario FROM usuarios WHERE usuario='{usuario}'"
+            resultado = ejecutar_sel(sql)
+            # Procesar los resultados
+            if len(resultado)==0:
+                flash('ERROR: Usuario no existe en la base de datos, por favor registrarse')
+                return render_template('Editaruadmin.html')              
+            else:
+                usuario = resultado[0][0]
+                nombre = resultado[0][1]
+                correo = resultado[0][2]
+                direccion = resultado[0][3]
+                telefono = resultado[0][4]               
+                tipousuario = resultado[0][5]
+                print(nombre, correo, direccion, telefono, tipousuario)
+                flash('Usuario:{} Nombre: {} E-mail: {} Dirección: {} Numero de celular: {} Tipo de Usuario: {}'.format(usuario, nombre,correo,direccion,telefono,tipousuario))                
+                return render_template('Editaruadmin.html')
+        elif "editar" in request.form:
+            nom = request.form['nombretxt'].strip()
+            cor = request.form['emailtxt'].strip()
+            pwd = generate_password_hash(request.form['password'])
+            dire = request.form['direcciontxt'].strip()
+            tele = request.form['numerocel'].strip()
+            tipou = request.form['TipoU']
+            sql = f"UPDATE usuarios SET nombre, correo, password, direccion, telefono, tipousuario VALUES (?, ?, ?, ?, ?, ?) WHERE usuario='{usuario}'"
+            res = accion(sql, (nom, cor, pwd, dire, tele, tipou))
+            if res==0:
+                print(nom, cor, pwd, dire, tele, tipou)
+                flash('ERROR: No se pudieron almacenar los datos, reintente')
+                return render_template('Editaruadmin.html')     
+            else:
+                flash('INFO: Los datos fueron actualizados satisfactoriamente')
+                return render_template('Editaruadmin.html')
+    else:        
+        return render_template("Editaruadmin.html")
 
 @app.route('/Ingreso/',methods=['GET','POST'])
 def ingreso():
@@ -157,6 +208,7 @@ def platos()-> str :
     return jsonify({'resultado':stat,'mensaje':mess,'datos':res}) 
 
 @app.route('/Listadeseos',methods=['GET','POST'])
+@login_required
 def deseos():
     return render("Listadeseos.html")
 
@@ -166,17 +218,11 @@ def about():
 
 @app.route('/Editaru',methods=['GET','POST'])
 def modify_user():
-#si el usuario esta registrado ingresar a la pagina de lo contrario solicitar datos de ingreso
     return render("Editaru.html")
-
-@app.route('/Editaruadmin',methods=['GET','POST'])
-def modify_user_admin():
-#si el usuario esta registrado ingresar a la pagina de lo contrario solicitar datos de ingreso
-    return render("Editaruadmin.html")
 
 @app.route('/Agregarmenu',methods=['GET','POST'])
 def agregar_menu():
-    return render("Agregarmenu.html")
+    return render("Agregarmenu.html")        
 
 @app.route('/Agregarplato',methods=['GET','POST'])
 def agregar_plato():

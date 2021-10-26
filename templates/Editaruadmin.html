@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row justify-content-center mt-4">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form action="" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                <form action="/Editaruadmin/" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
                     <input type="hidden" name="email" data-form-email="true" value="tXC2RPuRCa4bOXJewwAGHQqOEjaRk1Qf7QiAWnzmamE78drWq3UmQcnqZsuKPhqtkRyFartssIxlAab/Nw0QxQ8OSgNEXK3DwtdETLb2LXM4NUlxmQAHgclcDnZ6MilI">
                     <div class="row">
                         <div hidden="hidden" data-form-alert="" class="alert alert-success col-12"></div>
@@ -20,31 +20,40 @@
                     </div>
                     <div class="dragArea row">
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="name">
-                            <input type="text" name="name" placeholder="Nombre" data-form-field="name" class="form-control" value="" id="name-form6-1l">
-                        </div>                        
+                            <input type="text" name="usuariotxt" placeholder="Usuario" data-form-field="name" class="form-control" value="" id="usuariotxt">
+                        </div>
+                        <div class="div class=" btn-group btn-group-justified><input type="submit" name="buscar" value="Buscar" class="otroboton2"/></div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                            <input type="text" name="nombretxt" placeholder="Nombre" class="form-control" value="" id="nombretxt">
+                        </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
-                            <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" value="" id="email-form6-1l">
+                            <input type="email" name="emailtxt" placeholder="Email" data-form-field="email" class="form-control" value="" id="emailtxt">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
-                            <input type="text" name="usuario" placeholder="Password" class="form-control" value="" id="email-form6-1l">
+                            <input type="password" name="password" placeholder="Password" class="form-control" value="" id="email-form6-1l">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
-                            <input type="text" name="direccion" placeholder="Dirección" class="form-control" value="" id="email-form6-1l">
+                            <input type="text" name="direcciontxt" placeholder="Dirección" class="form-control" value="" id="email-form6-1l">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
-                            <input type="text" name="NumeroCel" placeholder="Número de Celular" class="form-control" value="" id="email-form6-1l">
+                            <input type="text" name="numerocel" placeholder="Número de Celular" class="form-control" value="" id="email-form6-1l">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
                             <input type="text" name="TipoU" placeholder="Tipo de Usuario" class="form-control" value="" id="email-form6-1l">
                         </div>
                     </div>
+                    <div class="botones">
+                        <div class="div class=" btn-group btn-group-justified><input type="submit" name="editar" value="Editar" class="otroboton2"/></div>
+                        <div class="div class=" btn-group btn-group-justified><input type="submit" name="eliminar" value="Eiminar" class="otroboton2"/></div>
+                    </div>
                 </form>
+                {% for msg in get_flashed_messages() %}
+                <div class="alert alert-succes">
+                    {{ msg }}
+                </div>
+                {% endfor %}
             </div>
         </div>
-    </div>
-    <div class="botones">
-        <button class="otroboton">Editar</button>
-        <button class="otroboton">Eliminar</button>
-    </div>
+    </div>    
 </section>
 {% endblock %}
