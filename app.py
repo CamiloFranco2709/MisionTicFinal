@@ -32,7 +32,9 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@app.route('/',methods=['GET'])
+@app.route('/home/')
+@app.route('/index/')
+@app.route('/')
 def inicio():
     return render("index.html")
 
