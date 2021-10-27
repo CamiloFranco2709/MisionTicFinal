@@ -232,30 +232,31 @@ def agregar_menu():
 
 @app.route('/Agregarplato',methods=['GET','POST'])
 def agregar_plato():
+    print("entro")
     frm = platos()
     if request.method == 'GET':
         return render("Agregarplato.html", form=frm, titulo='Agregar Plato')
     else:
+        idp = escape(request.form['idp'])
         nom = escape(request.form['nom'])
-        des = escape(request.form['des'])
 
         swerror = False
-        if nom==None or len(nom)==0:
+        if idp==None or len(idp)==0:
             flash('ERROR: Debe suministrar un nombre')
             swerror = True
-        if des==None or len(des)==0:
+        if nom==None or len(nom)==0:
             flash('ERROR: Debe suministrar un e-mail válido ')
             swerror = True
         if not swerror:      
             sql = 'INSERT INTO usuarios(nombre, descripcion) VALUES(?, ?)'
-            res = accion(sql, (nom, des))
+            res = accion(sql, (idp, nom))
             if res==0:
                 flash('ERROR: No se pudieron almacenar los datos, reintente')
             else:
                 flash('INFO: Los datos fueron almacenados satisfactoriamente')
-            if frm.validate_on_submit('agrbtn'):
+            if frm.validate_on_submit():
                 return redirect('/Agregarplato')                
-        return render('Agregarplato.html', form=frm, titulo='Registro de datos')
+        return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
     
 
 if __name__ == '__main__':

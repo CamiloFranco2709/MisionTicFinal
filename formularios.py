@@ -3,7 +3,7 @@ from typing import Text
 from flask_wtf import FlaskForm
 from wtforms import TextField, SubmitField, PasswordField, SelectField
 from wtforms import validators
-from wtforms.fields.core import FloatField, SelectField
+from wtforms.fields.core import FloatField, IntegerField, SelectField
 from wtforms.validators import InputRequired, Length, DataRequired
 from wtforms.fields.html5 import EmailField
 
@@ -24,9 +24,9 @@ class Login(FlaskForm):
     logbtn = SubmitField('Iniciar Sesión')
 
 class platos(FlaskForm):
-    nom = TextField('Nombre', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
+    idp = IntegerField('Identificacion', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
     busbtn = SubmitField('Buscar')
-    des = TextField('Descripcion', validators=[Length(min=2, max=100,message='Longitud fuera de rango')])
+    nom = TextField('Nombre', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
     agrbtn = SubmitField('Agregar')
     edibtn = SubmitField('Editar')
     elibtn = SubmitField('Eliminar')
