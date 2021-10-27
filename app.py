@@ -108,20 +108,30 @@ def modify_user_admin():
                 flash('Usuario:{} Nombre: {} E-mail: {} Dirección: {} Numero de celular: {} Tipo de Usuario: {}'.format(usuario, nombre,correo,direccion,telefono,tipousuario))                
                 return render_template('Editaruadmin.html')
         elif "editar" in request.form:
+            usuario = request.form['usuariotxt'].strip()
             nom = request.form['nombretxt'].strip()
             cor = request.form['emailtxt'].strip()
             pwd = generate_password_hash(request.form['password'])
             dire = request.form['direcciontxt'].strip()
             tele = request.form['numerocel'].strip()
             tipou = request.form['TipoU']
-            sql = f"UPDATE usuarios SET nombre, correo, password, direccion, telefono, tipousuario VALUES (?, ?, ?, ?, ?, ?) WHERE usuario='{usuario}'"
-            res = accion(sql, (nom, cor, pwd, dire, tele, tipou))
+            sql = "UPDATE usuarios SET nombre = '"+nom+"', correo = '"+cor+"', password = '"+pwd+"', direccion = '"+dire+"', telefono = '"+tele+"', tipousuario = '"+tipou+"' WHERE usuario='"+usuario+"';"
+            res = ejecutar_acc(sql)
             if res==0:
-                print(nom, cor, pwd, dire, tele, tipou)
-                flash('ERROR: No se pudieron almacenar los datos, reintente')
+                flash('ERROR: No se pudieron actualizar los datos, reintente')
                 return render_template('Editaruadmin.html')     
             else:
                 flash('INFO: Los datos fueron actualizados satisfactoriamente')
+                return render_template('Editaruadmin.html')
+        elif "eliminar" in request.form:
+            usuario = request.form['usuariotxt'].strip()
+            sql =  f"DELETE from usuarios WHERE usuario = '{usuario}'"
+            res = ejecutar_acc(sql)
+            if res==0:
+                flash('ERROR: No se pudieron borrar los datos, reintente')
+                return render_template('Editaruadmin.html')     
+            else:
+                flash('INFO: Los datos fueron eliminados satisfactoriamente')
                 return render_template('Editaruadmin.html')
     else:        
         return render_template("Editaruadmin.html")
