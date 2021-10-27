@@ -199,15 +199,9 @@ def productos()-> str :
 @app.route('/Platos',methods=['GET'])
 def platos()-> str :
     """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM platos ORDER BY nombre,id"
+    sql = "SELECT * FROM menu ORDER BY idm,nombre"
     res = ejecutar_sel(sql)
-    if len(res)==0:
-        mess = 'No existen platos registradas en el sistema'
-        stat = 'fail'
-    else:
-        mess = 'Se muestran los platos registrados'
-        stat = 'success'
-    return jsonify({'resultado':stat,'mensaje':mess,'datos':res}) 
+    return render("Platos.html",resultado=res)
 
 @app.route('/Listadeseos',methods=['GET','POST'])
 @login_required
@@ -228,7 +222,31 @@ def agregar_menu():
 
 @app.route('/Agregarplato',methods=['GET','POST'])
 def agregar_plato():
-    return render("Agregarplato.html")
+    frm = platos()
+    if request.method == 'GET':
+        return render("Agregarplato.html", form=frm, titulo='Agregar Plato')
+    else:
+        nom = escape(request.form['nom'])
+        des = escape(request.form['des'])
+
+        swerror = False
+        if nom==None or len(nom)==0:
+            flash('ERROR: Debe suministrar un nombre')
+            swerror = True
+        if des==None or len(des)==0:
+            flash('ERROR: Debe suministrar un e-mail válido ')
+            swerror = True
+        if not swerror:      
+            sql = 'INSERT INTO usuarios(nombre, descripcion) VALUES(?, ?)'
+            res = accion(sql, (nom, des))
+            if res==0:
+                flash('ERROR: No se pudieron almacenar los datos, reintente')
+            else:
+                flash('INFO: Los datos fueron almacenados satisfactoriamente')
+            if frm.validate_on_submit('agrbtn'):
+                return redirect('/Agregarplato')                
+        return render('Agregarplato.html', form=frm, titulo='Registro de datos')
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

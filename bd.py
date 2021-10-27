@@ -7,7 +7,7 @@ NOM_BD = 'Michaels.db'
 
 def sql_connection():
     try:
-        con=sqlite3.connect('Michaels.db')
+        con=sqlite3.connect(NOM_BD)
         return con
     except Error:
         print(Error)

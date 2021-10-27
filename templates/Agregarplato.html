@@ -5,42 +5,36 @@
     Agregar Platos
 </h1>
 
-<section data-bs-version="5.1" class="form6 cid-sKVt2ptwbI" id="form6-1l">
-    <div class="container">
-        <div class="row justify-content-center mt-4">
-            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form action="" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
-                    <div class="row">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12"></div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some problem!
-                        </div>
-                    </div>
-                    <div class="dragArea row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="name">
-                            <input type="text" name="menú" placeholder="Nombre del Plato" class="form-control" value="" id="nombrplato">
-                        </div>
-                        <br>
-                        <div class="div class=" btn-group btn-group-justified>
-                            <button type="button " class="otroboton2 " onclick=" " id="aggplato ">Buscar</button>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
-                        <input type="text" name="descripcion" placeholder="Descripción" class="form-control" value="" id="desplato">
-                    </div>
-                </form>
-                <div class="trans">
-                    <div class="div class=" btn-group btn-group-justified>
-                        <button type="button " class="otroboton2 " onclick=" " id="aggplato ">Agregar</button>
-                        <button type="button " class="otroboton2 " onclick=" " id="ediplato ">Editar</button>
-                        <button type="button " class="otroboton2 " onclick=" " id=eliplato>Eliminar</button>
-                        <button type="button " class="otroboton2 " onclick=" " id=eliplato>Ver Todos</button>
-                    </div>
-                </div>
-            </div>
+<form action="/Agregarplato/" method="POST">
+    <div class="formularios">
+        <div class='fila'>
+            <div class='c3'>{{ form.nom.label}}</div>
+            <div class='c7'>{{ form.nom(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+
+        <div class='fila'>
+            <div class='c2'>{{ form.busbtn() }} {{form.hidden_tag()}}</div>
+        </div>
+
+        <div class='fila'>
+            <div class='c3'>{{ form.des.label}}</div>
+            <div class='c7'>{{ form.des(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+
+        <div class='fila'>
+            <div class='c2'>{{ form.agrbtn() }} {{form.hidden_tag()}}</div>
+        </div>
+        <div class='fila'>
+            <div class='c2'>{{ form.edibtn() }} {{form.hidden_tag()}}</div>
+        </div>
+        <div class='fila'>
+            <div class='c2'>{{ form.elibtn() }} {{form.hidden_tag()}}</div>
+        </div>
+        <div class='fila'>
+            <div class='c2'>{{ form.verbtn() }} {{form.hidden_tag()}}</div>
         </div>
     </div>
-    <div>&nbsp;</div>
-</section>
-
-{% endblock %}
+</form>
+{% for msg in get_flashed_messages() %}
+<div>{{ msg }}</div>
+{% endfor %} {% endblock %}
