@@ -5,7 +5,7 @@ from flask import render_template as render
 from flask import redirect
 from flask.templating import render_template
 from wtforms import form
-from formularios import Registro, Login
+from formularios import Registro, Login, platos
 import os
 import sqlite3 
 from sqlite3 import Error
@@ -207,7 +207,7 @@ def productos()-> str :
     return jsonify({'resultado':stat,'mensaje':mess,'datos':res})
     """
 @app.route('/Platos',methods=['GET'])
-def platos()-> str :
+def Platos()-> str :
     """ Devolver el contenido completo de la base de datos """
     sql = "SELECT * FROM menu ORDER BY idm,nombre"
     res = ejecutar_sel(sql)
@@ -232,23 +232,22 @@ def agregar_menu():
 
 @app.route('/Agregarplato',methods=['GET','POST'])
 def agregar_plato():
-    print("entro")
     frm = platos()
     if request.method == 'GET':
-        return render("Agregarplato.html", form=frm, titulo='Agregar Plato')
+        return render("Agregarplato.html", form=frm, titulo='Agregar Platos')
     else:
         idp = escape(request.form['idp'])
         nom = escape(request.form['nom'])
-
+        
         swerror = False
-        if idp==None or len(idp)==0:
+        if idp==None:
+            flash('ERROR: Debe suministrar un Id')
+            swerror = True
+        if nom==None:
             flash('ERROR: Debe suministrar un nombre')
             swerror = True
-        if nom==None or len(nom)==0:
-            flash('ERROR: Debe suministrar un e-mail válido ')
-            swerror = True
         if not swerror:      
-            sql = 'INSERT INTO usuarios(nombre, descripcion) VALUES(?, ?)'
+            sql = 'INSERT INTO platos(idp, nombre) VALUES(?, ?)'   
             res = accion(sql, (idp, nom))
             if res==0:
                 flash('ERROR: No se pudieron almacenar los datos, reintente')

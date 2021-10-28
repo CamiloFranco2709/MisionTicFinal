@@ -6,33 +6,33 @@
 </h1>
 
 <form action="/Agregarplato" method="POST">
-    <div class="formularios">
-        <div class='fila'>
-            <div class='c3'>{{ form.idp.label}}</div>
-            <div class='c7'>{{ form.idp(size=40, minlegth=2, maxlength=100 )}}</div>
+    <div>
+        <div>
+            <div>{{ form.idp.label}}</div>
+            <div>{{ form.idp(size=40, minlegth=2, maxlength=100 )}}</div>
+        </div>
+        <!--
+        <div>
+            <div class='otroboton'>{{ form.busbtn() }} {{form.hidden_tag()}}</div>
+        </div>
+-->
+        <div>
+            <div>{{ form.nom.label}}</div>
+            <div>{{ form.nom(size=40, minlegth=2, maxlength=100 )}}</div>
         </div>
 
-        <div class='fila'>
-            <div class='c2'>{{ form.busbtn() }} {{form.hidden_tag()}}</div>
+        <div>
+            <div class='otroboton'>{{ form.agrbtn() }} {{form.hidden_tag()}}</div>
         </div>
-
-        <div class='fila'>
-            <div class='c3'>{{ form.nom.label}}</div>
-            <div class='c7'>{{ form.nom(size=40, minlegth=2, maxlength=100 )}}</div>
+        <!--  <div>
+            <div class='otroboton'>{{ form.edibtn() }} {{form.hidden_tag()}}</div>
         </div>
-
-        <div class='fila'>
-            <div class='c2'>{{ form.agrbtn() }} {{form.hidden_tag()}}</div>
+        <div>
+            <div class='otroboton'>{{ form.elibtn() }} {{form.hidden_tag()}}</div>
         </div>
-        <div class='fila'>
-            <div class='c2'>{{ form.edibtn() }} {{form.hidden_tag()}}</div>
-        </div>
-        <div class='fila'>
-            <div class='c2'>{{ form.elibtn() }} {{form.hidden_tag()}}</div>
-        </div>
-        <div class='fila'>
-            <div class='c2'>{{ form.verbtn() }} {{form.hidden_tag()}}</div>
-        </div>
+        <div>
+            <div class='otroboton'>{{ form.verbtn() }} {{form.hidden_tag()}}</div>
+        </div>-->
     </div>
 </form>
 {% for msg in get_flashed_messages() %}
