@@ -72,8 +72,33 @@ def sql_edit_menu(idm, nombre, precio):
 
 def sql_delete_menu(id):
     try:
-        strsql="delete from Menu where id="+id+";"
+        strsql="delete from Menu where idm="+id+";"
         res=cur.execute(strsql)
+        if res!=0:
+            con.commit()
+            con.close()
+    except:
+        res=0
+    return res
+
+def sql_insert_platos(idp, nombre):
+    try:
+        strsql="insert into platos (idp, nombre) values('"+idp+"', '"+nombre+");" #se usa para ejecutar las sentencias sql
+        res=cur.execute(strsql)
+        if res!=0:
+            con.commit()
+            con.close()
+    except:
+        res=0
+    return res  
+
+def sql_delete_platos(id, nom):
+    try:
+        strsql="DELETE FROM platos WHERE idp='"+id+"';"
+        print(id,"este es el id que recibe", "y este el nombre",nom)
+        sql ="update platos set idp = '"+id+"', nombre= '"+nom+"' where idp="+id+";"
+        res=cur.execute(sql)
+        print(res)
         if res!=0:
             con.commit()
             con.close()

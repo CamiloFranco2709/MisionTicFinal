@@ -10,7 +10,7 @@ import os
 import sqlite3 
 from sqlite3 import Error
 from flask import request
-from bd import ejecutar_sel, ejecutar_acc, accion
+from bd import ejecutar_sel, ejecutar_acc, accion, sql_insert_platos, sql_delete_platos
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import flash, request, session
@@ -238,24 +238,44 @@ def agregar_plato():
     else:
         idp = escape(request.form['idp'])
         nom = escape(request.form['nom'])
-        
-        swerror = False
-        if idp==None:
-            flash('ERROR: Debe suministrar un Id')
-            swerror = True
-        if nom==None:
-            flash('ERROR: Debe suministrar un nombre')
-            swerror = True
-        if not swerror:      
-            sql = 'INSERT INTO platos(idp, nombre) VALUES(?, ?)'   
-            res = accion(sql, (idp, nom))
-            if res==0:
-                flash('ERROR: No se pudieron almacenar los datos, reintente')
-            else:
-                flash('INFO: Los datos fueron almacenados satisfactoriamente')
-            if frm.validate_on_submit():
-                return redirect('/Agregarplato')                
-        return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+
+        if request.form.get("agrbtn"):
+            swerror = False
+            if idp==None or len(idp)==0:
+                flash('ERROR: Debe suministrar un Id')
+                swerror = True
+            if nom==None or len(nom)==0:
+                flash('ERROR: Debe suministrar un nombre')
+                swerror = True
+            if not swerror:       
+                res = sql_insert_platos(idp, nom)
+                print(res)
+                if res==0:
+                    flash('ERROR: No se pudieron almacenar los datos, reintente')
+                else:
+                    flash('INFO: Los datos fueron almacenados satisfactoriamente')
+                if frm.validate_on_submit():
+                    return redirect('/Agregarplato')                
+            return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+        elif request.form.get("elibtn"):
+            print("este es el id",idp)
+            swerror = False
+            if idp==None or len(idp)==0:
+                flash('ERROR: Debe suministrar un Id')
+                swerror = True
+            if nom==None or len(nom)==0:
+                flash('ERROR: Debe suministrar un nombre')
+                swerror = True
+            if not swerror:       
+                res = sql_delete_platos(idp,nom)
+                print(res)
+                if res==0:
+                    flash('ERROR: No se pudieron eliminar los datos, reintente')
+                else:
+                    flash('INFO: Los datos fueron eliminados satisfactoriamente')
+                if frm.validate_on_submit():
+                    return redirect('/Agregarplato')                
+            return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
     
 
 if __name__ == '__main__':
