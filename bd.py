@@ -7,7 +7,7 @@ NOM_BD = 'Michaels.db'
 
 def sql_connection():
     try:
-        con=sqlite3.connect(NOM_BD)
+        con=sqlite3.connect('Michaels.db')
         return con
     except Error:
         print(Error)
@@ -91,17 +91,3 @@ def sql_insert_platos(idp, nombre):
     except:
         res=0
     return res  
-
-def sql_delete_platos(id, nom):
-    try:
-        strsql="DELETE FROM platos WHERE idp='"+id+"';"
-        print(id,"este es el id que recibe", "y este el nombre",nom)
-        sql ="update platos set idp = '"+id+"', nombre= '"+nom+"' where idp="+id+";"
-        res=cur.execute(sql)
-        print(res)
-        if res!=0:
-            con.commit()
-            con.close()
-    except:
-        res=0
-    return res
