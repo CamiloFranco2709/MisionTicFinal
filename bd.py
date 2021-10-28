@@ -91,3 +91,14 @@ def sql_insert_platos(idp, nombre):
     except:
         res=0
     return res  
+
+def sql_delete_platos(id):
+    try:
+        strsql="delete from Menu where idm="+id+";"
+        res=cur.execute(strsql)
+        if res!=0:
+            con.commit()
+            con.close()
+    except:
+        res=0
+    return res
