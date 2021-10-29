@@ -197,15 +197,7 @@ def productos()-> str :
     sql = "SELECT * FROM menu ORDER BY idm,nombre"
     res = ejecutar_sel(sql)
     return render("Menu.html",resultado=res)
-    """
-    if len(res)==0:
-        mess = 'No existen platos registradas en el sistema'
-        stat = 'fail'
-    else:
-        mess = 'Se muestran los platos registrados'
-        stat = 'success'
-    return jsonify({'resultado':stat,'mensaje':mess,'datos':res})
-    """
+
 @app.route('/Platos',methods=['GET'])
 def Platos()-> str :
     """ Devolver el contenido completo de la base de datos """
@@ -258,6 +250,7 @@ def agregar_plato():
                 if frm.validate_on_submit():
                     return redirect('/Agregarplato')                
             return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+
         elif request.form.get('elibtn'):
             swerror = False
             if idp==None or len(idp)==0:
@@ -277,9 +270,35 @@ def agregar_plato():
                 if frm.validate_on_submit():
                     return redirect('/Agregarplato')                
             return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+        
+        elif request.form.get('edibtn'):
+            swerror = False
+            if idp==None or len(idp)==0:
+                flash('ERROR: Debe suministrar un ID')
+                swerror = True
+            if nom==None or len(nom)==0:
+                flash('ERROR: Debe suministrar un nombre')
+                swerror = True
+                
+            if not swerror:    
+                sql = "SELECT nombre FROM platos WHERE idp="+idp
+                buscar = ejecutar_sel(sql)  
 
-
-    
+                print(idp, buscar)
+                if buscar==[]:
+                    flash('ERROR:El ID no existe intente de nuevo')
+                else:
+                    
+                    sql = 'UPDATE platos SET nombre=? WHERE idp=?' 
+                    res = accion(sql, (nom,idp))
+                    print(res)
+                    if res==0 or res==None:
+                        flash('ERROR: No se pudo editar el nombre, reintente')
+                    else:
+                        flash('INFO: Los datos fueron actualizados satisfactoriamente')
+                    if frm.validate_on_submit():
+                        return redirect('/Agregarplato')                
+            return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
 
 if __name__ == '__main__':
     app.run(debug=True)
