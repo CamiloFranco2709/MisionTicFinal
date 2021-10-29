@@ -104,7 +104,6 @@ def modify_user_admin():
                 direccion = resultado[0][3]
                 telefono = resultado[0][4]               
                 tipousuario = resultado[0][5]
-                print(nombre, correo, direccion, telefono, tipousuario)
                 flash('Usuario:{} Nombre: {} E-mail: {} Dirección: {} Numero de celular: {} Tipo de Usuario: {}'.format(usuario, nombre,correo,direccion,telefono,tipousuario))                
                 return render_template('Editaruadmin.html')
         elif "editar" in request.form:
@@ -194,7 +193,7 @@ def carrito():
 @app.route('/Menu',methods=['GET'])
 def productos()-> str :
     """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM menu ORDER BY idm,nombre"
+    sql = "SELECT * FROM menu ORDER BY idm,nombre,precio"
     res = ejecutar_sel(sql)
     return render("Menu.html",resultado=res)
     """
@@ -214,7 +213,7 @@ def platos()-> str :
     return render("Platos.html",resultado=res)
 
 @app.route('/Listadeseos',methods=['GET','POST'])
-@login_required
+#@login_required
 def deseos():
     return render("Listadeseos.html")
 
