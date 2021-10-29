@@ -25,7 +25,6 @@ class Login(FlaskForm):
 
 class platos(FlaskForm):
     idp = TextField('Identificacion', validators=[Length(min=1, max=100,message='Longitud fuera de rango'),InputRequired(message='El Id es requerido')])
-    busbtn = SubmitField('Buscar')
     nom = TextField('Nombre', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
     agrbtn = SubmitField('Agregar')
     edibtn = SubmitField('Editar')
@@ -33,9 +32,8 @@ class platos(FlaskForm):
     verbtn = SubmitField('Ver Todos')
 
 class menu(FlaskForm):
-    nom=TextField('Nombre', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
-    busbtn = SubmitField('Buscar')
-    des=TextField('Descripcion', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
+    idm=TextField('Identificacion', validators=[Length(min=1, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
+    nom=TextField('Nombre', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])    
     pre=FloatField('Precio', validators=[Length(min=4,max=7,message='Precio no corresponde'),InputRequired(message='El nombre es requerido')])
     agrbtn = SubmitField('Agregar')
     edibtn = SubmitField('Editar')
