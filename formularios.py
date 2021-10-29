@@ -24,7 +24,7 @@ class Login(FlaskForm):
     logbtn = SubmitField('Iniciar Sesión')
 
 class platos(FlaskForm):
-    idp = IntegerField('Identificacion', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
+    idp = TextField('Identificacion', validators=[Length(min=1, max=100,message='Longitud fuera de rango'),InputRequired(message='El Id es requerido')])
     busbtn = SubmitField('Buscar')
     nom = TextField('Nombre', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
     agrbtn = SubmitField('Agregar')

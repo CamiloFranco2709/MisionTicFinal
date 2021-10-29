@@ -5,7 +5,7 @@ from flask import render_template as render
 from flask import redirect
 from flask.templating import render_template
 from wtforms import form
-from formularios import Registro, Login
+from formularios import Registro, Login, platos
 import os
 import sqlite3 
 from sqlite3 import Error
@@ -206,7 +206,7 @@ def productos()-> str :
     return jsonify({'resultado':stat,'mensaje':mess,'datos':res})
     """
 @app.route('/Platos',methods=['GET'])
-def platos()-> str :
+def Platos()-> str :
     """ Devolver el contenido completo de la base de datos """
     sql = "SELECT * FROM menu ORDER BY idm,nombre"
     res = ejecutar_sel(sql)
@@ -231,31 +231,53 @@ def agregar_menu():
 
 @app.route('/Agregarplato',methods=['GET','POST'])
 def agregar_plato():
-    print("entro")
     frm = platos()
     if request.method == 'GET':
         return render("Agregarplato.html", form=frm, titulo='Agregar Plato')
     else:
         idp = escape(request.form['idp'])
         nom = escape(request.form['nom'])
+        
+        if request.form.get('agrbtn'):
+            swerror = False
+            if idp==None or len(idp)==0:
+                flash('ERROR: Debe suministrar un ID')
+                swerror = True
+            if nom==None or len(nom)==0:
+                flash('ERROR: Debe suministrar un nombre')
+                swerror = True
+                
+            if not swerror:      
+                sql = 'INSERT INTO platos(idp, nombre) VALUES(?, ?)'   
+                res = accion(sql, (idp, nom))
+                if res==0:
+                    flash('ERROR: No se pudieron almacenar los datos, reintente')
+                else:
+                    flash('INFO: Los datos fueron almacenados satisfactoriamente')
+                if frm.validate_on_submit():
+                    return redirect('/Agregarplato')                
+            return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+        elif request.form.get('elibtn'):
+            swerror = False
+            if idp==None or len(idp)==0:
+                flash('ERROR: Debe suministrar un ID')
+                swerror = True
+            if nom==None or len(nom)==0:
+                flash('ERROR: Debe suministrar un nombre')
+                swerror = True
+                
+            if not swerror:      
+                sql = 'DELETE FROM platos WHERE idp=?'   
+                res = accion(sql, (idp))
+                if res==0:
+                    flash('ERROR: No se pudieron eliminar los datos, reintente')
+                else:
+                    flash('INFO: Los datos fueron eliminados satisfactoriamente')
+                if frm.validate_on_submit():
+                    return redirect('/Agregarplato')                
+            return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
 
-        swerror = False
-        if idp==None or len(idp)==0:
-            flash('ERROR: Debe suministrar un nombre')
-            swerror = True
-        if nom==None or len(nom)==0:
-            flash('ERROR: Debe suministrar un e-mail válido ')
-            swerror = True
-        if not swerror:      
-            sql = 'INSERT INTO usuarios(nombre, descripcion) VALUES(?, ?)'
-            res = accion(sql, (idp, nom))
-            if res==0:
-                flash('ERROR: No se pudieron almacenar los datos, reintente')
-            else:
-                flash('INFO: Los datos fueron almacenados satisfactoriamente')
-            if frm.validate_on_submit():
-                return redirect('/Agregarplato')                
-        return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+
     
 
 if __name__ == '__main__':

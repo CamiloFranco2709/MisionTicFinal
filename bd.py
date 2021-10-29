@@ -7,7 +7,7 @@ NOM_BD = 'Michaels.db'
 
 def sql_connection():
     try:
-        con=sqlite3.connect(NOM_BD)
+        con=sqlite3.connect('Michaels.db')
         return con
     except Error:
         print(Error)
@@ -72,7 +72,29 @@ def sql_edit_menu(idm, nombre, precio):
 
 def sql_delete_menu(id):
     try:
-        strsql="delete from Menu where id="+id+";"
+        strsql="delete from Menu where idm="+id+";"
+        res=cur.execute(strsql)
+        if res!=0:
+            con.commit()
+            con.close()
+    except:
+        res=0
+    return res
+
+def sql_insert_platos(idp, nombre):
+    try:
+        strsql="insert into platos (idp, nombre) values('"+idp+"', '"+nombre+");" #se usa para ejecutar las sentencias sql
+        res=cur.execute(strsql)
+        if res!=0:
+            con.commit()
+            con.close()
+    except:
+        res=0
+    return res  
+
+def sql_delete_platos(id):
+    try:
+        strsql="delete from Menu where idm="+id+";"
         res=cur.execute(strsql)
         if res!=0:
             con.commit()
