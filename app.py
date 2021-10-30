@@ -233,6 +233,10 @@ def about():
 def modify_user():
     return render("Editaru.html")
 
+@app.route('/Editaruadmin',methods=['GET','POST'])
+def modify_useradmin():
+    return render("Editaruadmin.html")
+
 @app.route('/Agregarmenu',methods=['GET','POST'])
 def agregar_menu():
     frm = menu()
