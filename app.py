@@ -5,7 +5,7 @@ from flask import render_template as render
 from flask import redirect
 from flask.templating import render_template
 from wtforms import form
-from formularios import Registro, Login, menu, platos, menuplatos
+from formularios import Registro, Login, menu, platos
 import os
 import sqlite3 
 from sqlite3 import Error
