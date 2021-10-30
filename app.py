@@ -207,8 +207,12 @@ def Platos()-> str :
 
 @app.route('/Listadeseos',methods=['GET','POST'])
 @login_required
-def deseos():
-    return render("Listadeseos.html")
+def deseos()-> str:
+    """ Devolver el contenido completo de la base de datos """
+    sql = "SELECT * FROM ListaDeseos where Idusuario=Idusuario ORDER BY IDListad"
+    res = ejecutar_sel(sql)
+    return render("Listadeseos.html",resultado=res)
+
 
 @app.route('/Aboutus',methods=['GET'])
 def about():
