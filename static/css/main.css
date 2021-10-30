@@ -395,3 +395,62 @@ h2 {
     align-self: flex-start;
     color: #8d233f;
 }
+
+.addCart {    
+    border: none;
+    color: #8d233f;
+    border-radius: 4px;
+    padding: 4px 32px 32px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    height: 20px;
+    align-self: flex-end;
+    
+}
+
+.addDeseos {    
+    border: none;
+    color: #8d233f;
+    border-radius: 4px;
+    padding: 4px 32px 32px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    height: 20px;
+    align-self: flex-end;
+    }
+
+.addComentarios {
+    font-family: Bebas Neue;
+    border: none;
+    color: #8d233f;
+    border-radius: 4px;
+    padding: 4px 32px 32px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    height: 20px;
+    align-self: flex-end;
+    font-weight:  bolder;
+    
+}
+
+.card-link {
+    text-align: center;
+}
+
+
+
+
+
+

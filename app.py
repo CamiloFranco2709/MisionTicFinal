@@ -188,15 +188,20 @@ def perfil():
     return render("Perfil.html")
 
 @app.route('/Carrito',methods=['GET','POST'])
-def carrito():
-    return render("Carrito.html")
-
-@app.route('/Menu',methods=['GET'])
-def productos()-> str :
+def Carrito()-> str :
     """ Devolver el contenido completo de la base de datos """
     sql = "SELECT * FROM menu ORDER BY idm,nombre"
     res = ejecutar_sel(sql)
-    return render("Menu.html",resultado=res)
+    return render("Carrito.html",resultado=res)
+
+
+@app.route('/Menu',methods=['GET'])
+def Menu()-> str :
+    """ Devolver el contenido completo de la base de datos """
+    sql = "SELECT * FROM menu ORDER BY idm,nombre"
+    res = ejecutar_sel(sql)
+    return render("Menu.html", resultado=res)
+
 
 @app.route('/Platos',methods=['GET'])
 def Platos()-> str :
