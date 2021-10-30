@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block head %}
+<title> Perfil Usuario </title>
+{% endblock %} {% block body %}
+
+<h2>
+    Bienvenido a tu Perfil
+</h2>
+<br>
+<div>
+    <p id="log1"><a href="/Carrito">Carrito de Compras</a></p>
+    <p id="log1"><a href="/Listadeseos">Gestionar Lista de deseos</a></p>
+    <p id="log1"><a href="/Comentarios">Gestionar Comentarios</a></p>
+</div>
+<form action='/salir/' method='GET' name='salir' id='salir'>
+    <div class='fila'>
+        <button class=otroboton>Salir</button>
+    </div>
+</form>
+<div class='fila'>&nbsp;</div>
+<br>
+<div class='fila'>&nbsp;</div>
+
+{% endblock %}
