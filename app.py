@@ -181,7 +181,12 @@ def ingreso():
 @app.route('/salir/', methods=['GET','POST'])
 def salir():
     session.clear()
-    return render_template("index.html")            
+    return render_template("index.html")
+
+@app.route('/Exit', methods=['GET','POST'])
+def exit():
+    session.clear()
+    return render_template("Exit.html")
             
 @app.route('/Perfil',methods=['GET','POST'])
 def perfil():
