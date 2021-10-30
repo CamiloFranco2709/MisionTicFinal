@@ -214,7 +214,7 @@ def Platos()-> str :
 @login_required
 def deseos()-> str:
     """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM ListaDeseos where Idusuario=Idusuario ORDER BY IDListad"
+    sql = "SELECT * FROM ListaDeseos INNER JOIN menu ON ListaDeseos.IdMenu=menu.idm"
     res = ejecutar_sel(sql)
     return render("Listadeseos.html",resultado=res)
 
