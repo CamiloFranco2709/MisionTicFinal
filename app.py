@@ -5,7 +5,7 @@ from flask import render_template as render
 from flask import redirect
 from flask.templating import render_template
 from wtforms import form
-from formularios import Registro, Login, menu, platos
+from formularios import Registro, Login, menu, platos, menuplatos
 import os
 import sqlite3 
 from sqlite3 import Error
@@ -365,6 +365,64 @@ def agregar_plato():
                     if frm.validate_on_submit():
                         return redirect('/Agregarplato')                
             return render('Agregarplato.html', form=frm, titulo='Agregar Plato')
+"""
+@app.route('/Agregarplatosmenu',methods=['GET','POST'])
+def agregar_platomenu():
+    sqlm = "SELECT nombre FROM menu"
+    sqlp = "SELECT nombre FROM platos"
+    menul = ejecutar_sel(sqlm)  
+    platosl = ejecutar_sel(sqlp)
+
+
+    frm = menuplatos(menul,platosl)
+
+    if request.method == 'GET':
+        return render("Agregarplatomenu.html", form=frm, titulo='Agregar Platos a Menu')
+    else:
+
+        me = escape(request.form['menu'])
+        pla = escape(request.form['plato'])
+
+        swerror = False
+        if me==None or len(me)==0:
+            flash('ERROR: Debe seleccionar un menu')
+            swerror = True
+        if pla==None or len(pla)==0:
+            flash('ERROR: Debe suministrar un plato')
+            swerror = True
+        sql = "SELECT Idmenu FROM PlatosMenu WHERE Idmenu=?, IdPlatos=?"
+        buscar = accion(sql, me, pla)  
+        print (buscar)
+
+
+        if buscar!=[]:
+
+            if request.form.get('agrbtn'):
+                
+                if not swerror:      
+                    sql = 'INSERT INTO platos(IdMenu, IdPlatos) VALUES(?, ?)'   
+                    res = accion(sql, (me, pla))
+                    if res==0:
+                        flash('ERROR: No se pudieron almacenar los datos, reintente')
+                    else:
+                        flash('INFO: Los datos fueron almacenados satisfactoriamente')
+                    if frm.validate_on_submit():
+                        return redirect('/Agregarplatosmenu')                
+                return render('Agregarplatosmenu.html', form=frm, titulo='Agregar Platos a Menu')
+
+            elif request.form.get('elibtn'):
+                    
+                if not swerror:      
+                    sql = 'DELETE FROM platos WHERE IdMenu=?,IdPlatos=?'   
+                    res = accion(sql, (me, pla))
+                    if res==0:
+                        flash('ERROR: No se pudieron eliminar los datos, reintente')
+                    else:
+                        flash('INFO: Los datos fueron eliminados satisfactoriamente')
+                    if frm.validate_on_submit():
+                        return redirect('/Agregarplatosmenu')                
+                return render('Agregarplatosmenu.html', form=frm, titulo='Agregar Platos a Menu')
+"""
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -6,6 +6,7 @@ from wtforms import validators
 from wtforms.fields.core import FloatField, IntegerField, SelectField
 from wtforms.validators import InputRequired, Length, DataRequired
 from wtforms.fields.html5 import EmailField
+from wtforms.widgets.core import Select
 
 class Registro(FlaskForm):
     usu = TextField('Usuario', validators=[Length(min=2, max=100,message='Longitud fuera de rango'),InputRequired(message='El nombre es requerido')])
@@ -68,3 +69,17 @@ class editu(FlaskForm):
     edibtn = SubmitField('Editar')
     elibtn = SubmitField('Eliminar')
     verbtn = SubmitField('Ver Todos')
+
+mychoicesm=[]
+mychoicesp=[]
+
+class menuplatos(FlaskForm,mychoicesm, mychoicesp):
+    menu = SelectField('Menu',choices=mychoicesm,validate_choice=True)
+    plato = SelectField('Platos',choices=mychoicesp,validate_choice=True)
+    agrbtn = SubmitField('Agregar')
+    edibtn = SubmitField('Editar')
+    elibtn = SubmitField('Eliminar')
+
+
+
+
