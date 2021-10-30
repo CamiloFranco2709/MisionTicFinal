@@ -10,7 +10,7 @@ import os
 import sqlite3 
 from sqlite3 import Error
 from flask import request
-from bd import ejecutar_sel, ejecutar_acc, accion
+from bd import ejecutar_sel, ejecutar_acc, accion, ejecutar_sel2
 from markupsafe import escape
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import flash, request, session
@@ -213,9 +213,10 @@ def Platos()-> str :
 @app.route('/Listadeseos',methods=['GET','POST'])
 @login_required
 def deseos()-> str:
-    idusuario = session.get("id")
-    """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM ListaDeseos INNER JOIN menu ON ListaDeseos.IdMenu=menu.idm where Idusuario=idusuario"
+    if request.method == 'GET':
+        if 'usu' in session:
+            usuario = session['usu']
+    sql = "SELECT * FROM ListaDeseos INNER JOIN menu ON ListaDeseos.IdMenu=menu.idm INNER JOIN usuarios ON ListaDeseos.Idusuario = usuarios.id AND usuario='"+usuario+"';"
     res = ejecutar_sel(sql)
     return render("Listadeseos.html",resultado=res)
 

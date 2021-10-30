@@ -47,3 +47,12 @@ def accion(sql, datos) -> int:
     except:
         res = 0
     return res
+def ejecutar_sel2(sql,datos) -> list:
+    """ Ejecuta consultas de seleccion : SELECT """
+    try:
+        with sqlite3.connect(NOM_BD) as con:  # Conectarse a la base de datos
+            cur = con.cursor()                # Crea un área intermedia para gestión de los contenidos
+            res = cur.execute(sql,datos) # Se obtienen los registros devueltos
+    except:
+        res = None
+    return res
