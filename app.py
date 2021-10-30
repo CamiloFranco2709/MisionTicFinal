@@ -213,8 +213,9 @@ def Platos()-> str :
 @app.route('/Listadeseos',methods=['GET','POST'])
 @login_required
 def deseos()-> str:
+    idusuario = session.get("id")
     """ Devolver el contenido completo de la base de datos """
-    sql = "SELECT * FROM ListaDeseos INNER JOIN menu ON ListaDeseos.IdMenu=menu.idm"
+    sql = "SELECT * FROM ListaDeseos INNER JOIN menu ON ListaDeseos.IdMenu=menu.idm where Idusuario=idusuario"
     res = ejecutar_sel(sql)
     return render("Listadeseos.html",resultado=res)
 
