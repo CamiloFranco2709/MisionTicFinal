@@ -70,15 +70,6 @@ class editu(FlaskForm):
     elibtn = SubmitField('Eliminar')
     verbtn = SubmitField('Ver Todos')
 
-mychoicesm=[]
-mychoicesp=[]
-
-class menuplatos(FlaskForm,mychoicesm, mychoicesp):
-    menu = SelectField('Menu',choices=mychoicesm,validate_choice=True)
-    plato = SelectField('Platos',choices=mychoicesp,validate_choice=True)
-    agrbtn = SubmitField('Agregar')
-    edibtn = SubmitField('Editar')
-    elibtn = SubmitField('Eliminar')
 
 
 
