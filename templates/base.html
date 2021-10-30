@@ -49,8 +49,13 @@
                 <ul>
                     <li><a href="/">Inicio</a></li>
                     <li><a href="/Aboutus">Nosotros</a></li>
+                    {% if 'usu' in session %}                    
+                    <li><a href="/Carrito">&#x1F6D2;</a></li>
+                    <li><a href="/Exit">Salir</a></li>
+                    {% else %}
                     <li><a href="/Menu">Menus</a></li>
-                    <li><a href="/Ingreso">Login/Sign Up</a></li>
+                    <li><a href="/Ingreso">Login/Sign Up</a></li>                    
+                    {% endif %}
                 </ul>
             </nav>
         </div>

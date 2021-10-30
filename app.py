@@ -181,7 +181,12 @@ def ingreso():
 @app.route('/salir/', methods=['GET','POST'])
 def salir():
     session.clear()
-    return render_template("index.html")            
+    return render_template("index.html")
+
+@app.route('/Exit', methods=['GET','POST'])
+def exit():
+    session.clear()
+    return render_template("Exit.html")
             
 @app.route('/Perfil',methods=['GET','POST'])
 def perfil():
@@ -228,6 +233,10 @@ def about():
 @app.route('/Editaru',methods=['GET','POST'])
 def modify_user():
     return render("Editaru.html")
+
+@app.route('/Editaruadmin',methods=['GET','POST'])
+def modify_useradmin():
+    return render("Editaruadmin.html")
 
 @app.route('/Agregarmenu',methods=['GET','POST'])
 def agregar_menu():
